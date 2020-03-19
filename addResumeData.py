@@ -23,8 +23,6 @@ cur.execute('''CREATE TABLE IF NOT EXISTS Resume (
 
 # Prompt for the folder of resumes to add
 folder = input('Enter folder name: ')
-# if len(folder) == 0:
-#     folder = "Resumes"
 
 # Define acceptance inputs for hired status and file type
 hiredInputs = ['y','yes','Yes','Y','YES']
@@ -49,7 +47,7 @@ while True:
 # Loop through the files in the given folder
 for fname in os.listdir(folder):
 
-# If the file is already in the database, skip
+# If the filename is already in the database, skip
     cur.execute('SELECT filename FROM Resume')
     rows = cur.fetchall()
     if (fname,) in rows:
@@ -63,7 +61,8 @@ for fname in os.listdir(folder):
             if text_new is None:
                 continue
             text = text + text_new
-# Cleanup the text
+
+# Cleanup the text by removing unwanted characters
         text = text.replace('\n●'," ")
         text = text.replace('●',"")
         text = text.replace('•',"")
